@@ -1,0 +1,106 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "Start Emulators",
+      "type": "shell",
+      "command": "docker compose up -d",
+      "problemMatcher": [],
+      "runOptions": {
+        "instanceLimit": 1,
+        "instancePolicy": "silent"
+      }
+    },
+    {
+      "label": "dealership-api: dotnet build",
+      "type": "process",
+      "command": "dotnet",
+      "args": [
+        "build",
+        "${workspaceFolder}/backend/Dealership.Api/Dealership.Api.csproj",
+        "--configuration",
+        "Debug"
+      ],
+      "options": {
+        "cwd": "${workspaceFolder}/backend/Dealership.Api"
+      },
+      "problemMatcher": "$msCompile",
+      "group": "build",
+      "runOptions": {
+        "instanceLimit": 1,
+        "instancePolicy": "silent"
+      }
+    },
+    {
+      "label": "dealership-api: dotnet run",
+      "type": "shell",
+      "command": "dotnet run --project ${workspaceFolder}/backend/Dealership.Api/Dealership.Api.csproj --urls http://localhost:5040",
+      "options": {
+        "cwd": "${workspaceFolder}/backend/Dealership.Api"
+      },
+      "dependsOn": [
+        "Start Emulators",
+        "dealership-api: dotnet build"
+      ],
+      "isBackground": true,
+      "problemMatcher": {
+        "owner": "dotnet",
+        "severity": "info",
+        "pattern": {
+          "regexp": "^(.*)$",
+          "message": 1
+        },
+        "background": {
+          "activeOnStart": true,
+          "beginsPattern": "Now listening on",
+          "endsPattern": "Application started"
+        }
+      },
+      "runOptions": {
+        "instanceLimit": 1,
+        "instancePolicy": "silent"
+      }
+    },
+    {
+      "label": "frontend: dev",
+      "type": "shell",
+      "command": "npm run dev -- --host 0.0.0.0",
+      "options": {
+        "cwd": "${workspaceFolder}/frontend"
+      },
+      "dependsOn": [
+        "Start Emulators"
+      ],
+      "isBackground": true,
+      "problemMatcher": {
+        "owner": "vite",
+        "severity": "info",
+        "pattern": {
+          "regexp": "^(.*)$",
+          "message": 1
+        },
+        "background": {
+          "activeOnStart": true,
+          "beginsPattern": "VITE",
+          "endsPattern": "Local:"
+        }
+      },
+      "runOptions": {
+        "instanceLimit": 1,
+        "instancePolicy": "silent"
+      }
+    },
+    {
+      "label": "debug-all-services: sequence-start",
+      "dependsOn": [
+        "dealership-api: dotnet run",
+        "frontend: dev"
+      ],
+      "dependsOrder": "sequence",
+      "runOptions": {
+        "instanceLimit": 1,
+        "instancePolicy": "silent"
+      }
+    }
+  ]
+}

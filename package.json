@@ -1,0 +1,13 @@
+{
+  "name": "starter-dealership",
+  "private": true,
+  "scripts": {
+    "frontend:dev": "npm --prefix frontend run dev -- --host 0.0.0.0",
+    "frontend:build": "npm --prefix frontend run build",
+    "backend:dev": "export PATH=\"$HOME/.dotnet:$PATH\" && cd backend && dotnet run --project Dealership.Api/Dealership.Api.csproj",
+    "backend:build": "export PATH=\"$HOME/.dotnet:$PATH\" && cd backend && dotnet build Dealership.sln",
+    "emulators:start": "docker compose up -d",
+    "emulators:stop": "docker compose down",
+    "db:migrate": "export PATH=\"$HOME/.dotnet:$PATH\" && cd backend && dotnet ef database update --project Dealership.Api/Dealership.Api.csproj --startup-project Dealership.Api/Dealership.Api.csproj"
+  }
+}

@@ -1,0 +1,15 @@
+{
+  "make": "Toyota",
+  "model": "Corolla",
+  "year": 2024,
+  "trim": "LE",
+  "price": 25999,
+  "mileage": 12000,
+  "status": "Available",
+  "description": "Local debug smoke test vehicle.",
+  "category": "Sedan",
+  "fuel": "Gasoline",
+  "location": "Seattle",
+  "image": "",
+  "deal": ""
+}

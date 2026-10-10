@@ -1,0 +1,21 @@
+version: "3.9"
+
+services:
+  sql:
+    image: mcr.microsoft.com/azure-sql-edge:latest
+    container_name: dealership-sql
+    environment:
+      ACCEPT_EULA: "Y"
+      MSSQL_SA_PASSWORD: "YourStrong!Passw0rd"
+      MSSQL_PID: "Developer"
+    ports:
+      - "1433:1433"
+
+  azurite:
+    image: mcr.microsoft.com/azure-storage/azurite
+    container_name: dealership-blob
+    command: azurite --blobHost 0.0.0.0 --blobPort 10000 --queueHost 0.0.0.0 --queuePort 10001 --tableHost 0.0.0.0 --tablePort 10002
+    ports:
+      - "10000:10000"
+      - "10001:10001"
+      - "10002:10002"

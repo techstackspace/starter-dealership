@@ -1,0 +1,32 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "Dealership API (debug)",
+      "type": "coreclr",
+      "request": "attach",
+      "processName": "Dealership.Api",
+      "justMyCode": true,
+      "preLaunchTask": "dealership-api: dotnet run"
+    },
+    {
+      "name": "Frontend (debug)",
+      "type": "chrome",
+      "request": "launch",
+      "url": "http://localhost:5173",
+      "webRoot": "${workspaceFolder}/frontend",
+      "preLaunchTask": "frontend: dev"
+    }
+  ],
+  "compounds": [
+    {
+      "name": "Debug All Services",
+      "configurations": [
+        "Dealership API (debug)",
+        "Frontend (debug)"
+      ],
+      "preLaunchTask": "debug-all-services: sequence-start",
+      "stopAll": true
+    }
+  ]
+}
